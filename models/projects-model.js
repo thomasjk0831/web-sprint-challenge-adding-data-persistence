@@ -3,6 +3,7 @@ const db = require("../data/db-config.js");
 module.exports = {
     getAll,
     add,
+    findById,
 }
 
 function getAll() {
@@ -16,4 +17,8 @@ function add(project) {
             return db("projects").where({ id }).first();
 
         })
+}
+
+function findById(id) {
+    return db("projects").where({ id }).first()
 }

@@ -14,13 +14,19 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    Resources.add(req.body)
-        .then(resource => {
-            res.status(201).json({ created: resource });
-        })
-        .catch(err => {
-            res.status(500).json({ message: "Failed to create new resource" });
-        });
+    if (!req.body.description || !req.body.name) {
+        res.json({ msg: "error, Resources need values for 'name' and 'description'" })
+    }
+    else {
+        Resources.add(req.body)
+            .then(resource => {
+                res.status(201).json({ created: resource });
+            })
+            .catch(err => {
+                res.status(500).json({ message: "Failed to create new resource" });
+            });
+
+    }
 });
 
 module.exports = router
